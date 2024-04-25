@@ -366,6 +366,8 @@ print(x_haan_duay_y(2,0))
 
   ตัวอย่างเช่น names = ['Pook','Lookkaew','Kan']
 
-  ''.join(names) => 'PookLookkaewKan'
+  ' '.join(names) => 'PookLookkaewKan'
+
   '_'.join(names) => Pook_Lookkaew_Kan
+
   '♡'.join(names) => Pook♡Lookkaew♡Kan

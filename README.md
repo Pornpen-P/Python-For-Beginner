@@ -371,3 +371,90 @@ print(x_haan_duay_y(2,0))
   '_'.join(names) => Pook_Lookkaew_Kan
 
   '♡'.join(names) => Pook♡Lookkaew♡Kan
+
+
+---
+
+สรุปสิ่งที่ได้เรียนรู้วันที่ 25 เมษายน 2567
+
+
+ได้ทดลองนำคำสั่งที่เรียนมาทั้งหมด มาเขียนเป็นเกมทายชื่อแบบง่าย 
+
+ซึ่งได้เรียนรู้ว่า ก่อนจะทำการเขียนโปรแกรมนั้น เราจะต้องเรียนรู้ Logic ต่าง ๆ ของโปรแกรมอย่างเป็นลำดับขั้นก่อน คือถ้าเราจะเขียนเกมทายชื่อ เราก็ต้องไล่ขั้นตอนว่า เกมของเราจะทำเดินไปอย่างไร 
+
+ตัวอย่างเช่น 
+
+เริ่มแรกเรากำหนดว่า เกมของเราจะต้องมีส่วนของ
+
+คะแนนเริ่มต้น
+score = 0 
+
+ชีวิตเริ่มต้น lives = 3 
+
+จะต้องมีการสุ่มคำ และจะต้องมีการแสดงเบาะแส clue = ['?','?',...]
+
+หลังจากนั้นทำการ เดาตัวอักษรที่อยู่ภายในชื่อ
+
+ถ้าทายตัวอักษรถูก ให้ทำการแทนที่ตัวอักษรนั้นลงใปในเบาะแส 
+if อยู่ใน clue = ['?','?','?','k'] 
+
+ถ้าทายได้ครบทุกตัวอักษร ไม่เหลือ '?' แล้ว 
+ให้บวกคะแนนเพิ่ม 1 คะแนน 
+
+ถ้าทายไม่ถูก 1 ตัวอักษร lives จะต้องลด 1
+
+เมื่อ lives ==  0 ถือว่าจบเกม 
+
+
+เมื่อเราเริ่มร่างสิ่งที่เราต้องการออกมาแล้ว จึงนำส่วนต่าง ๆ ไปเขียนเป็น pseudo code เพื่อวางโครงสร้างเกมของเรา และค่อย ๆ เขียนโค้ดลงไป 
+
+```
+#pseudo-code
+import random
+
+#ตัวแปรที่ระบุสถานะของเกม
+score = 0
+lives = 3
+words = ['jackie','por','ple','bumebim','nan','kaofang','tonmint','pook']
+
+def update_clue(guess,secret_word,clue):
+    #guess ไล่ไปทีละคัวอักษรใน secret_word ดูว่ามีตัวไหนบ้างตรงกับที่ทาย
+    for i in range(len(secret_word)):
+        #ถ้าทายตรงกับตัวไหน ก็อัปเดตตำแหน่งนั้น
+        if guess == secret_word[i]:
+            clue[i] = guess
+    win = ''.join(clue) == secret_word
+    return win #ทายจนหมด '?' แล้ว  -> True, ยังเหลือ -> False
+
+#ตราบใดที่ยังมีคำให้ทายอยู่ และ ชีวิตยังเหลือ --> เล่นต่อไป
+while (len(words) > 0) and (lives > 0):
+    #สุ่มคำจาก words แล้วดึงคำนั้นออกจาก List
+    random.shuffle(words)
+    secret_word = words.pop()
+    clue = list('?'*len(secret_word)) #จำนวนเท่ากับตัวอักษรของ secret_word
+
+    #ตราบใดที่ยังทายคำนี้ไม่เสร็จหรือชีวิตยังไม่หมด
+    while True:
+        print(clue)
+        print('ชีวิตที่เหลือ: ' + str(lives))
+        guess = input('ทายตัวอักษรสิจ๊ะ: ')
+
+        #check ว่าตัวอักษรที่ทาย อยู่ใน secret_word หรือไม่?
+        if guess in secret_word:
+            win = update_clue(guess,secret_word,clue)
+            if win:
+                print('เย้!! คนนั้นก็คือ: '+secret_word)
+                score = score + 1
+                print('Score: ' + str(score))
+                break #ทายคำนี้ชนะแล้ว
+        else: #ที่ guess มา ไม่อยู่ใน secret_word
+                    print('ผิด!! โดนฟันหนึ่งฉับ')
+                    lives = lives - 1
+                    if lives == 0:
+                        print('เลือดหมดตัว เจ้าแพ้แล้ว!! คนนั้นก็คือ : ' + secret_word)
+                        break #เกมจบแล้ว
+
+print('Final score: ' + str(score))
+print('Game end!')
+```
+

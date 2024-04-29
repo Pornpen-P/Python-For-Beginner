@@ -4,7 +4,7 @@ import random
 #ตัวแปรที่ระบุสถานะของเกม
 score = 0
 lives = 3
-words = ['jackie','por','ple','bumebim','nan','kaofang','tonmint','pook']
+words = ['jackie','por','ple','bumebim','nan','kaofang','nat','tonmint','pook']
 
 def update_clue(guess,secret_word,clue):
     #guess ไล่ไปทีละคัวอักษรใน secret_word ดูว่ามีตัวไหนบ้างตรงกับที่ทาย
